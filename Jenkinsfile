@@ -13,6 +13,8 @@ pipeline {
                 API_KEY = "DMiEBHiD3F5F2CrqwLJD9MPFEUJbbm_G5fa-firKEp87"
             }            
             steps{
+                sh "apt-get update"
+                sh "apt-get install -y sudo"
                 sh "curl -sL https://ibm.biz/idt-installer | bash"
                 sh "ibmcloud login --apikey $API_KEY"
 
