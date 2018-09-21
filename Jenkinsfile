@@ -14,10 +14,11 @@ pipeline {
             }            
             steps{
                 container('nodejs') {
-                //sh "apt-get update"
-                //sh "apt-get install -y sudo"
-                sh "curl -sL https://ibm.biz/idt-installer | bash"
-                sh "ibmcloud login --apikey $API_KEY"                    
+                    //sh "apt-get update"
+                    //sh "apt-get install -y sudo"
+                    //sh "curl -sL https://ibm.biz/idt-installer | bash"
+                    sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
+                    sh "ibmcloud login --apikey $API_KEY"                    
                 }
 
             }
