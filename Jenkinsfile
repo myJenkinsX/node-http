@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Login IBM') {
             environment {
-                API_KEY = "DMiEBHiD3F5F2CrqwLJD9MPFEUJbbm_G5fa-firKEp87"
+                API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
                 API_ENDPOINT = "https://api.au-syd.bluemix.net"
             }            
             steps{
@@ -20,7 +20,12 @@ pipeline {
                     //sh "curl -sL https://ibm.biz/idt-installer | bash"
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
                     sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
-                    sh "ibmcloud info"
+                    sh "ibmcloud cs region-set ap-north"
+                    sh "ibmcloud cs cluster-config mycluster --export"
+                    def export_cmd = sh returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export"
+                    echo "$export_cmd"
+                    sh "$export_cmd"
+                    sh "ibmcloud cs cluster-get mycluster"
                 }
 
             }
