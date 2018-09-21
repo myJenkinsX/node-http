@@ -13,6 +13,7 @@ pipeline {
                 API_KEY = "DMiEBHiD3F5F2CrqwLJD9MPFEUJbbm_G5fa-firKEp87"
             }            
             steps{
+                sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
                 sh "ibmcloud login --apikey $API_KEY"
 
             }
