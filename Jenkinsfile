@@ -22,7 +22,8 @@ pipeline {
                     sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud cs region-set ap-north"
                     sh "ibmcloud cs cluster-config mycluster --export"
-                    def export_cmd = sh returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export"
+                    //def export_cmd = sh returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export"
+                    export_cmd = sh(returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export")
                     echo "$export_cmd"
                     sh "$export_cmd"
                     sh "ibmcloud cs cluster-get mycluster"
