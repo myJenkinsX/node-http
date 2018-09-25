@@ -22,8 +22,7 @@ pipeline {
                     sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud plugin install container-service"
                     sh "ibmcloud cs region-set ap-north"
-                    //sh "ibmcloud cs cluster-config mycluster --export"
-                    sh "SET_ENV = \$(ibmcloud cs cluster-config mycluster --export) && $SET_ENV"
+                    sh "VAR3=$(ibmcloud cs cluster-config mycluster --export) && $VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
                 }
 
