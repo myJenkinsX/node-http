@@ -25,6 +25,7 @@ pipeline {
                     sh "ibmcloud cs region-set ap-north"
                     sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
+                    sh "bx cr login"
                 }
 
             }
