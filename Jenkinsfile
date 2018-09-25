@@ -12,6 +12,7 @@ pipeline {
             environment {
                 API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
                 API_ENDPOINT = "https://api.au-syd.bluemix.net"
+                REGISTRY_URL = "registry.au-syd.bluemix.net"
             }            
             steps{
                 container('nodejs') {
@@ -25,7 +26,7 @@ pipeline {
                     sh "ibmcloud cs region-set ap-north"
                     sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
-                    sh "docker login -u iamapikey -p $API_KEY $API_ENDPOINT"                    
+                    sh "docker login -u iamapikey -p $API_KEY $REGISTRY_URL"                    
                     sh "ibmcloud cr images"
                 }
 
