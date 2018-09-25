@@ -9,6 +9,7 @@ pipeline {
     }
     
     stages {
+        /*
         stage('IBM Login') {
             environment {
                 API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
@@ -27,6 +28,7 @@ pipeline {
                 }
             }
         }
+        */
 
       stage('CI Build and push snapshot') {
         when {
@@ -38,9 +40,8 @@ pipeline {
           HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
         }
         steps {
-          container('nodejs') {
+          container('nodejs') {              
             sh "npm install"
-            sh "ibmcloud cr images"
             sh "CI=true DISPLAY=:99 npm test"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
@@ -62,6 +63,11 @@ pipeline {
           branch 'master'
         }
         steps {
+            environment {
+                API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
+                API_ENDPOINT = "https://api.au-syd.bluemix.net"
+            }            
+
           container('nodejs') {
             // ensure we're not on a detached head
             sh "git checkout master"
@@ -76,7 +82,23 @@ pipeline {
               sh "make tag"
             }
           }
+            
+            
           container('nodejs') {
+
+            sh "echo ---IBM Login--- "
+
+                    sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
+                    sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
+                    sh "ibmcloud plugin install container-service"
+                    sh "ibmcloud plugin install container-registry"
+                    sh "ibmcloud cs region-set ap-north"
+                    sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
+                    sh "ibmcloud cs cluster-get mycluster"
+                    sh "ibmcloud cr images"
+
+            sh "echo ---IBM Login End--- "
+
             sh "npm install"
             sh "CI=true DISPLAY=:99 npm test"
 
