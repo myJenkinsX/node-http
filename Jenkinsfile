@@ -26,8 +26,8 @@ pipeline {
                     sh "ibmcloud cs region-set ap-north"
                     sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
-                    sh "ibmcloud cr login"
                     sh "ibmcloud cr images"
+                    //sh "ibmcloud cr images"
                     //sh "docker login -u iamapikey -p $API_KEY $REGISTRY_URL"                    
                     //sh "ibmcloud cr images"
                     
