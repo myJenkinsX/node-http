@@ -7,7 +7,26 @@ pipeline {
       APP_NAME          = 'node-http'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
     }
+    
     stages {
+        stage('IBM Login') {
+            environment {
+                API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
+                API_ENDPOINT = "https://api.au-syd.bluemix.net"
+            }            
+            steps{
+                container('nodejs') {
+                    sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
+                    sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
+                    sh "ibmcloud plugin install container-service"
+                    sh "ibmcloud plugin install container-registry"
+                    sh "ibmcloud cs region-set ap-north"
+                    sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
+                    sh "ibmcloud cs cluster-get mycluster"
+                }
+            }
+        }
+
       stage('CI Build and push snapshot') {
         when {
           branch 'PR-*'
