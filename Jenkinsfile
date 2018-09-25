@@ -21,13 +21,9 @@ pipeline {
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
                     sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud cs region-set ap-north"
-                    sh "ibmcloud cs cluster-config mycluster --export"
-                    //def export_cmd = sh returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export"
-                    //export_cmd = sh(returnStdout: true, script: "ibmcloud cs cluster-config mycluster --export")
+                    //sh "ibmcloud cs cluster-config mycluster --export"
                     sh "SET_ENV = $(ibmcloud cs cluster-config mycluster --export)"
                     sh "$SET_ENV"
-                    //echo "$export_cmd"
-                    //sh "$export_cmd"
                     sh "ibmcloud cs cluster-get mycluster"
                 }
 
