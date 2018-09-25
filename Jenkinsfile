@@ -59,15 +59,16 @@ pipeline {
         }
       }
       stage('Build Release') {
+        environment {
+            API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
+            API_ENDPOINT = "https://api.au-syd.bluemix.net"
+        }            
+          
         when {
           branch 'master'
         }
+          
         steps {
-            environment {
-                API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
-                API_ENDPOINT = "https://api.au-syd.bluemix.net"
-            }            
-
           container('nodejs') {
             // ensure we're not on a detached head
             sh "git checkout master"
@@ -77,15 +78,14 @@ pipeline {
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
           }
+            
           dir ('./charts/node-http') {
             container('nodejs') {
               sh "make tag"
             }
           }
             
-            
           container('nodejs') {
-
             sh "echo ---IBM Login--- "
 
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
