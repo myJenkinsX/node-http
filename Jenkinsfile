@@ -16,9 +16,9 @@ pipeline {
             }            
             steps{
                 container('nodejs') {
-                    //sh "apt-get update"
-                    //sh "apt-get install -y sudo"
-                    //sh "curl -sL https://ibm.biz/idt-installer | bash"
+                    
+                    sh "cat /home/jenkins/.docker/config.json"
+   /*
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
                     sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud plugin install container-service"
@@ -28,6 +28,7 @@ pipeline {
                     sh "ibmcloud cs cluster-get mycluster"
                     sh "docker login -u iamapikey -p $API_KEY $REGISTRY_URL"                    
                     sh "ibmcloud cr images"
+                    */
                 }
 
             }
