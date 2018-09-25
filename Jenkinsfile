@@ -23,6 +23,7 @@ pipeline {
                     sh "ibmcloud cs region-set ap-north"
                     sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
+                    sh "ibmcloud cr images"
                 }
             }
         }
@@ -39,6 +40,7 @@ pipeline {
         steps {
           container('nodejs') {
             sh "npm install"
+            sh "ibmcloud cr images"
             sh "CI=true DISPLAY=:99 npm test"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
