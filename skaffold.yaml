@@ -6,7 +6,7 @@ build:
       template: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.VERSION}}"
   artifacts:
 #  - imageName: changeme
-  - imageName: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.VERSION}}"
+  - imageName: registry.au-syd.bluemix.net/wofish2/node-http
     workspace: .
     docker: {}
   local: {}
