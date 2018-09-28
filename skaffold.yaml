@@ -2,8 +2,11 @@ apiVersion: skaffold/v1alpha2
 kind: Config
 build:
   tagPolicy:
-    envTemplate:
-      template: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.VERSION}}"
+    #envTemplate:
+     # template: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.VERSION}}"
+    dateTime:
+      format: "2018-09-28"
+      timezone: "UTC"            
   artifacts:
 #  - imageName: changeme
   - imageName: registry.au-syd.bluemix.net/wofish2/node-http
@@ -17,8 +20,11 @@ profiles:
 - name: dev
   build:
     tagPolicy:
-      envTemplate:
-        template: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.DIGEST_HEX}}"
+#      envTemplate:
+ #       template: "{{.DOCKER_REGISTRY}}/wofish2/node-http:{{.DIGEST_HEX}}"
+      dateTime:
+        format: "2018-09-28"
+        timezone: "UTC"                    
     artifacts:
     - docker: {}
     local: {}
@@ -28,5 +34,7 @@ profiles:
       - name: node-http
         chartPath: charts/node-http
         setValueTemplates:
-          image.repository: "{{.DOCKER_REGISTRY}}/wofish2/node-http"
-          image.tag: "{{.DIGEST_HEX}}"
+#          image.repository: "{{.DOCKER_REGISTRY}}/wofish2/node-http"
+ #         image.tag: "{{.DIGEST_HEX}}"
+          image.repository: "registry.au-syd.bluemix.net/wofish2/node-http"
+          image.tag: "2018"
