@@ -18,8 +18,10 @@ pipeline {
             steps{
                 container('nodejs') {
                     
-                    //sh "cat /home/jenkins/.docker/config.json"
-   
+                    sh "ls -la /home/jenkins/.docker/config.json"
+                    sh "chmod 777 /home/jenkins/.docker/config.json"
+                    
+   /*
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
                     sh "ibmcloud plugin install container-service"
                     sh "ibmcloud plugin install container-registry"
@@ -41,7 +43,7 @@ pipeline {
                     //sh "ibmcloud cr images"
                     //sh "docker login -u iamapikey -p $API_KEY $REGISTRY_URL"                    
                     //sh "ibmcloud cr images"
-                    
+                    */
                 }
 
             }
