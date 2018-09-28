@@ -20,12 +20,19 @@ pipeline {
                     //sh "cat /home/jenkins/.docker/config.json"
    
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
-                    sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud plugin install container-service"
                     sh "ibmcloud plugin install container-registry"
+                    
+                    sh "ibmcloud login --apikey $API_KEY -a $API_ENDPOINT"
                     sh "ibmcloud cs region-set ap-north"
                     sh "VAR3=\$(ibmcloud cs cluster-config mycluster --export) && \$VAR3"
                     sh "ibmcloud cs cluster-get mycluster"
+                    sh "ibmcloud cr images"
+                    
+                    sh "docker pull hello-world"
+                    sh "docker tag hello-world:latest registry.au-syd.bluemix.net/wofish2/hello-world:2"
+                    sh "docker push registry.au-syd.bluemix.net/wofish2/hello-world:2"
+                    
                     sh "ibmcloud cr images"
                     //sh "ibmcloud cr images"
                     //sh "docker login -u iamapikey -p $API_KEY $REGISTRY_URL"                    
