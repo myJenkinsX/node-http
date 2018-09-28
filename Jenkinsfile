@@ -29,6 +29,7 @@ pipeline {
                     sh "ibmcloud cs cluster-get mycluster"
                     sh "ibmcloud cr images"
                     
+                    sh "ibmcloud cr login"
                     sh "docker pull hello-world"
                     sh "docker tag hello-world:latest registry.au-syd.bluemix.net/wofish2/hello-world:2"
                     sh "docker push registry.au-syd.bluemix.net/wofish2/hello-world:2"
