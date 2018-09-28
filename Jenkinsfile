@@ -19,7 +19,9 @@ pipeline {
                 container('nodejs') {
                     
                     sh "ls -la /home/jenkins/.docker/config.json"
+                    sh "who am i"
                     sh "chmod 777 /home/jenkins/.docker/config.json"
+                    sh "ls -la /home/jenkins/.docker/config.json"
                     
    /*
                     sh "curl -fsSL https://clis.ng.bluemix.net/install/linux | sh"
