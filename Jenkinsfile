@@ -13,6 +13,7 @@ pipeline {
                 API_KEY = "r4cDhWdpdjeueJVokgbZqdnEIbNyjvRGZV86SeIJKAtT"
                 API_ENDPOINT = "https://api.au-syd.bluemix.net"
                 REGISTRY_URL = "registry.au-syd.bluemix.net"
+                TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwOGYwYTY4NC1jNTRkLTVlMTEtODNlMS0yYTQ5NGJjYjQ1ZDAiLCJpc3MiOiJyZWdpc3RyeS5hdS1zeWQuYmx1ZW1peC5uZXQifQ.6dChm5qw7BJoHH6B9v9HDk8WvLsVDnzaGjBQiNUOtrE"
             }            
             steps{
                 container('nodejs') {
@@ -30,7 +31,8 @@ pipeline {
                     //sh "ibmcloud cr images"
                     
                     //sh "ibmcloud cr login"
-                    sh "docker login -u DONGHAIY@jp.ibm.com -p $API_KEY $REGISTRY_URL"
+                    //sh "docker login -u DONGHAIY@jp.ibm.com -p $API_KEY $REGISTRY_URL"
+                    sh "docker login -u token $REGISTRY_URL -p $TOKEN"
                     sh "docker pull hello-world"
                     sh "docker tag hello-world:latest registry.au-syd.bluemix.net/wofish2/hello-world:2"
                     sh "docker push registry.au-syd.bluemix.net/wofish2/hello-world:2"
